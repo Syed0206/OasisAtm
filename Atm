@@ -1,0 +1,218 @@
+package Oasis;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map
+
+public class Atm extends JFrame {
+    private Map<String, Integer> customerData; // Simple customer data storage
+
+    public Atm() {
+        // Set the frame properties
+        setTitle("ATM Interface");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create a custom panel for the gradient background
+        GradientPanel gradientPanel = new GradientPanel();
+        
+        int spacing = 200; // Adjust the spacing as needed
+        gradientPanel.setBorder(new EmptyBorder(spacing, spacing, spacing, spacing));
+     
+     
+        // Initialize customer data (for demonstration)
+        customerData = new HashMap<>();
+        customerData.put("1234", 1000);
+        customerData.put("5678",2000);// Card number and initial balance
+
+        // Create a main content panel with BorderLayout
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
+        // Create a panel for authentication components
+        JPanel authPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        JLabel cardNumberLabel = new JLabel("Card Number:");
+        JTextField cardNumberField = new JTextField(10);
+
+     
+
+        // Add components to the authentication panel
+        authPanel.add(cardNumberLabel, gbc);
+        gbc.gridx++;
+        authPanel.add(cardNumberField, gbc);
+        gbc.gridx++;
+        
+
+        // Create a panel for ATM actions
+        JPanel actionPanel = new JPanel(new FlowLayout());
+        JButton withdrawButton = new JButton("Withdraw");
+        JButton depositButton = new JButton("Deposit");
+        JButton balanceButton = new JButton("Check Balance");
+
+        // Add buttons for ATM actions
+        actionPanel.add(withdrawButton);
+        actionPanel.add(depositButton);
+        actionPanel.add(balanceButton);
+
+        // Add action listeners for the buttons
+
+        // Sign In button action
+        
+
+        // Sign Up button action
+     // ... (previous code)
+
+     // Sign Up button action
+    
+
+        // Withdraw button action
+        withdrawButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cardNumber = cardNumberField.getText();
+                int balance = customerData.getOrDefault(cardNumber, -1);
+                if (balance != -1) {
+                    int amountToWithdraw = Integer.parseInt(JOptionPane.showInputDialog("Enter withdrawal amount:"));
+                    if (amountToWithdraw > balance) {
+                        JOptionPane.showMessageDialog(null, "Insufficient funds.");
+                    } else {
+                        balance -= amountToWithdraw;
+                        customerData.put(cardNumber, balance);
+                        JOptionPane.showMessageDialog(null, "Withdrawal successful. Your new balance is: $" + balance);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid card number. Please try again.");
+                }
+            }
+        });
+
+        // Deposit button action
+        depositButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cardNumber = cardNumberField.getText();
+                int balance = customerData.getOrDefault(cardNumber, -1);
+                if (balance != -1) {
+                    int amountToDeposit = Integer.parseInt(JOptionPane.showInputDialog("Enter deposit amount:"));
+                    balance += amountToDeposit;
+                    customerData.put(cardNumber, balance);
+                    JOptionPane.showMessageDialog(null, "Deposit successful. Your new balance is: $" + balance);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid card number. Please try again.");
+                }
+            }
+        });
+
+        // Check Balance button action
+      
+
+
+        // Withdraw button action
+        withdrawButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cardNumber = cardNumberField.getText();
+                int balance = customerData.getOrDefault(cardNumber, -1);
+                if (balance != -1) {
+                    int amountToWithdraw = Integer.parseInt(JOptionPane.showInputDialog("Enter withdrawal amount:"));
+                    if (amountToWithdraw > balance) {
+                        JOptionPane.showMessageDialog(null, "Insufficient funds.");
+                    } else {
+                        balance -= amountToWithdraw;
+                        customerData.put(cardNumber, balance);
+                        JOptionPane.showMessageDialog(null, "Withdrawal successful. Your new balance is: $" + balance);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid card number. Please try again.");
+                }
+            }
+        });
+
+        // Deposit button action
+        depositButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cardNumber = cardNumberField.getText();
+                int balance = customerData.getOrDefault(cardNumber, -1);
+                if (balance != -1) {
+                    int amountToDeposit = Integer.parseInt(JOptionPane.showInputDialog("Enter deposit amount:"));
+                    balance += amountToDeposit;
+                    customerData.put(cardNumber, balance);
+                    JOptionPane.showMessageDialog(null, "Deposit successful. Your new balance is: $" + balance);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid card number. Please try again.");
+                }
+            }
+        });
+
+        // Check Balance button action
+        balanceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cardNumber = cardNumberField.getText();
+                int balance = customerData.getOrDefault(cardNumber, -1);
+                if (balance != -1) {
+                    JOptionPane.showMessageDialog(null, "Your balance is: $" + balance);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid card number. Please try again.");
+                }
+            }
+        });
+
+        // Add components to the main panel
+        mainPanel.add(authPanel, BorderLayout.NORTH);
+        mainPanel.add(actionPanel, BorderLayout.CENTER);
+
+        // Add the main panel to the gradient panel
+        gradientPanel.add(mainPanel);
+
+        // Add the gradient panel to the frame
+        add(gradientPanel);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Atm atmInterface = new Atm();
+            atmInterface.setVisible(true);
+        });
+    }
+}
+
+class GradientPanel extends JPanel {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Define the gradient colors and points
+        Color startColor = Color.CYAN;
+        Color endColor = Color.BLUE;
+        Point startPoint = new Point(0, 0);
+        Point endPoint = new Point(0, getHeight());
+
+        // Create a GradientPaint object
+        GradientPaint gradient = new GradientPaint(startPoint, startColor, endPoint, endColor);
+
+        // Create a Graphics2D object from the Graphics object
+        Graphics2D g2d = (Graphics2D) g;
+
+        // Set the paint to the gradient
+        g2d.setPaint(gradient);
+
+        // Fill the panel with the gradient
+        g2d.fillRect(0, 0, getWidth(), getHeight());
+    }
+}
